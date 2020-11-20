@@ -6,109 +6,98 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
 } from 'react-native';
+// import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-community/google-signin';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const App = () => {
 
-const App: () => React$Node = () => {
+  // const [userInfo, setUserInfo] = useState({});
+  // const [isLoading, setIsLoading] = useState(false);
+
+  // useEffect(() => {
+  //   GoogleSignin.configure({
+  //     webClientId: "373393097316-ksvgl216pqj0a3dct8g0s1i8f4h78r2u.apps.googleusercontent.com",
+  //     offlineAccess: true,
+  //     hostedDomain: '',
+  //     loginHint: '',
+  //     forceCodeForRefreshToken: true,
+  //     accountName: '',
+  //     iosClientId: "373393097316-ksvgl216pqj0a3dct8g0s1i8f4h78r2u.apps.googleusercontent.com",
+  //   })
+  // },[]);
+
+  // const signIn = async () => {
+  //   try {
+  //     setIsLoading(true);
+  //     await GoogleSignin.hasPlayServices();
+  //     const userInfo = await GoogleSignin.signIn();
+  //     setUserInfo(userInfo);
+  //   } catch (err) {
+  //     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+  //       console.log("cancel");
+  //       // user cancelled the login flow
+  //     } else if (error.code === statusCodes.IN_PROGRESS) {
+  //       console.log('이미 하는중')
+  //       // operation (f.e. sign in) is in progress already
+  //     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+  //       console.error('구글 서비스 안함');
+  //       // play services not available or outdated
+  //     } else {
+  //       console.error(err);
+  //       // some other error happened
+  //     }
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // }
+
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+     <SafeAreaView style={styles.container}>
+      {/* <GoogleSigninButton
+        style={{width: 192, height: 48}}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={signIn}
+        disabled={isLoading}
+      /> */}
+      <LoginButton
+        onLoginFinished={
+          async (err,result) => {
+            if(err){
+              console.log("login has error: " + result.error);
+            } else if (result.isCancelled) {
+              console.log("login is cancelled.");
+            } else {
+              try{
+                const data = await AccessToken.getCurrentAccessToken()
+                console.log(data.accessToken.toString());
+              }catch(err){
+                console.error(err);
+              }
+            }
+          }
+        }
+        onLogoutFinished={() => console.log("logout")}
+      />
+     </SafeAreaView>
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+  container: {
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
+  }
 });
 
 export default App;

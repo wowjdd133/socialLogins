@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "373393097316",
+    "firebase_url": "https://sociallogins-4c7fd.firebaseio.com",
+    "project_id": "sociallogins-4c7fd",
+    "storage_bucket": "sociallogins-4c7fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373393097316:android:f042e4ea0ec6e821225571",
+        "android_client_info": {
+          "package_name": "com.logins"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373393097316-mftid3r7tlve25s52ndrd0kpqotu1prv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.logins",
+            "certificate_hash": "af3fef4da43ec70e5aebed105f894872b8c74f17"
+          }
+        },
+        {
+          "client_id": "373393097316-ksvgl216pqj0a3dct8g0s1i8f4h78r2u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcZkOxtFhDNtj7z6Vtds4-3kLCNfDayVA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373393097316-ksvgl216pqj0a3dct8g0s1i8f4h78r2u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "373393097316-l6p4n0pm797g36pvnji37a70im8qgerd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.logins"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
